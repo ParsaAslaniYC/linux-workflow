@@ -15,6 +15,12 @@ jobs:
     - name: Download
       run: wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.9.tar.xz
 
+    - name: Install the kernel source
+      run: |
+        xz -cd linux-6.8.9.tar.xz | tar xvf -
+        cd linux-6.8.9
+        make mrproper
+
     - name: configure
       run: ./configure
 
