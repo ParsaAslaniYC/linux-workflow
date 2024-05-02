@@ -26,8 +26,10 @@ jobs:
         cd linux-6.8.9
         make defconfig
 
-    - name: Install dependencies
-      run: make
+    - name: Compile the kernel
+      run: |
+        cd linux-6.8.9
+        make
 
     - name: Run check
       run: make check
