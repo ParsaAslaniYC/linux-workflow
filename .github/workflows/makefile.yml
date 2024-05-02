@@ -21,6 +21,9 @@ jobs:
         cd linux-6.8.9
         make mrproper
 
+    - name: Install libelf-dev
+      run: sudo apt-get install -y libelf-dev
+
     - name: Configure the kernel
       run: |
         cd linux-6.8.9
