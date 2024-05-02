@@ -34,8 +34,5 @@ jobs:
         cd linux-6.8.9
         make
 
-    - name: Run check
-      run: make check
-
     - name: Run distcheck
       run: make distcheck
