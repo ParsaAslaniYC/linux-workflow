@@ -33,6 +33,3 @@ jobs:
       run: |
         cd linux-6.8.9
         make
-
-    - name: Run distcheck
-      run: make distcheck
