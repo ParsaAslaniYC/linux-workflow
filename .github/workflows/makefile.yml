@@ -12,24 +12,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Cache the kernel
+      id: cache-kernel
+      uses: actions/cache@v4
+      with:
+        path: linux-6.8.9
+        key: linux-6.8.9
+
     - name: Download
+      if: steps.cache-kernel.outputs.cache-hit != 'true'
       run: wget https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.9.tar.xz
 
     - name: Install the kernel source
+      if: steps.cache-kernel.outputs.cache-hit != 'true'
       run: |
         xz -cd linux-6.8.9.tar.xz | tar xvf -
         cd linux-6.8.9
         make mrproper
 
     - name: Install libelf-dev
+      if: steps.cache-kernel.outputs.cache-hit != 'true'
       run: sudo apt-get install -y libelf-dev
 
     - name: Configure the kernel
+      if: steps.cache-kernel.outputs.cache-hit != 'true'
       run: |
         cd linux-6.8.9
         make defconfig
 
     - name: Compile the kernel
+      if: steps.cache-kernel.outputs.cache-hit != 'true'
       run: |
         cd linux-6.8.9
         make
