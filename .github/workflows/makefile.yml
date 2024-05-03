@@ -50,6 +50,13 @@ jobs:
       run: |
         mkdir -p iso/boot
 
+    - name: Install the kernel
+      run: |
+        cd linux-6.8.9
+        install $(make -s image_name) ../iso/boot/vmlinuz
+        install System.map ../iso/boot/System.map
+        install .config ../iso/boot/config
+
     - name: Make a GRUB bootable CD-ROM
       run: |
         sudo apt-get install -y mtools
