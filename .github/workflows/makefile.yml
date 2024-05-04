@@ -50,6 +50,22 @@ jobs:
       run: |
         mkdir -p iso/boot
 
+    - name: Create initramfs image
+      run: |
+        mkdir initramfs
+        cat > hello.c << EOF
+        #include <stdio.h>
+        #include <unistd.h>
+
+        int main(int argc, char *argv[])
+        {
+          printf("Hello world!\n");
+          sleep(999999999);
+        }
+        EOF
+        gcc -static hello.c -o initramfs/init
+        (cd initramfs; find . | cpio -o -H newc | gzip) > iso/boot/initramfs.cpio.gz
+
     - name: Install the kernel
       run: |
         cd linux-6.8.9
