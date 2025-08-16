@@ -78,7 +78,8 @@ jobs:
 
     - name: Make a GRUB bootable CD-ROM
       run: |
-        sudo apt-get install -y mtools
+        sudo apt-add-repository universe
+        sudo apt-get install -y mtools xorriso
         mkdir -p iso/boot/grub
         cat << EOF > iso/boot/grub/grub.cfg
         set default=0
